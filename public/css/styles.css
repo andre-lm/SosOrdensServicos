@@ -59,3 +59,22 @@ p.p-show{
 .alert-error{
     border-radius: 0.25rem;
 }
+
+ul.navbar-nav{
+    margin-right: 2%;
+}
+
+.navbar-nav .dropdown-menu {
+    position: absolute;
+}
+
+.img-circle{
+    width: 140px;
+    height: 130px;
+    border-radius: 100%;
+    margin: 20px;
+}
+
+#roles{
+    font-size: 0.91em;
+}

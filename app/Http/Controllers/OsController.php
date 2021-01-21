@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Requests\OsRequest;
 use App\Http\Requests\AcompanhamentoRequest;
@@ -40,7 +41,7 @@ class OsController extends Controller
            
             $os->nome_autor = $request->nome_autor;
             $os->titulo = $request->titulo;
-            $os->atribuido_tecnico = $request->atribuido_tecnico;
+            $os->id_user = $request->atribuido_tecnico;
             $os->equipamento = $request->equipamento;
             $os->descrição = $request->descrição;
             $os->status_id = 1;
@@ -48,11 +49,8 @@ class OsController extends Controller
 
             DB::commit();
             return redirect()->route('os.index')->with('status', "Chamado ID $os->id cadastrado com sucesso" );
-        } catch (Exception $e) {
-            MainHelper::printLog($e);
-            DB::rollback();
-            echo $e;
-            exit();
+        }  catch (ModelNotFoundException $exception) {
+            return back()->withError($exception->getMessage())->withInput();
         }
     }
 
@@ -118,11 +116,8 @@ class OsController extends Controller
            
             DB::commit();
             return redirect()->route('os.show',$os_id)->with('status', 'Acompanhamento criado com sucesso!');
-        } catch (Exception $e) {
-            MainHelper::printLog($e);
-            DB::rollback();
-            echo $e;
-            exit();
+        }  catch (ModelNotFoundException $exception) {
+            return back()->withError($exception->getMessage())->withInput();
         }
        
     }
@@ -149,11 +144,8 @@ class OsController extends Controller
             
             DB::commit();
             return redirect()->route('os.show',$os_id)->with('status', 'Chamado encerrado com sucesso!' );
-        } catch (Exception $e) {
-            MainHelper::printLog($e);
-            DB::rollback();
-            echo $e;
-            exit();
+        }  catch (ModelNotFoundException $exception) {
+            return back()->withError($exception->getMessage())->withInput();
         }
        
     }

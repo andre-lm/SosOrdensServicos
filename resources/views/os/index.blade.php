@@ -45,7 +45,7 @@ Chamados
                   <td>{{ $os->id }}</td>
                   <td>{{ $os->nome_autor }}</td>
                   <td>{{ $os->titulo }}</td>
-                  <td>{{ $os->atribuido_tecnico }}</td>
+                  <td>{{ $os->userName($os->id_user) }}</td>
                   <td>{{ $os->equipamento }}</td>
                   <td>{{ $os->status->status }}</td>
                   @php

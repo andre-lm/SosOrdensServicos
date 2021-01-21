@@ -17,7 +17,7 @@ class CreateOsTable extends Migration
             $table->id('id');
             $table->string('nome_autor');
             $table->string('titulo');
-            $table->string('atribuido_tecnico');
+            // $table->string('atribuido_tecnico');
             $table->string('equipamento');
             $table->string('descrição');
             $table->unsignedBigInteger('status_id');

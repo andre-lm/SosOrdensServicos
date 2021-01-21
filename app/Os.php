@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\User;
 
 class Os extends Model
 {
@@ -12,10 +13,11 @@ class Os extends Model
     protected $fillable = [
         'nome_autor',
         'titulo',
-        'atribuido_tecnico',
+        // 'atribuido_tecnico',
         'equipamento',
         'descrição',
-        'status_id'
+        'status_id',
+        'id_user'
     ];
 
     public function status()
@@ -33,4 +35,12 @@ class Os extends Model
         return $this->hasMany('App\Solucao','ordens_servico_id','id');
     }
 
+    public function users() {
+        return $this->belongsTo('App\User');
+    }
+
+    public function userName($id){
+        $user = User::find($id);
+        return $user->name;
+    }
 }

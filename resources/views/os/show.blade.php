@@ -27,7 +27,7 @@ Visualizar chamado
         <div class="col-6" >
             <p class="p-show"><b>Nome do autor da criação:</b> {{ $os->nome_autor }}</p>
             <p class="p-show"><b>Título:</b> {{ $os->titulo }}</p>
-            <p class="p-show"><b>Técnico:</b> {{ $os->atribuido_tecnico }}</p>
+            <p class="p-show"><b>Técnico:</b> {{ $os->userName($os->id_user) }}</p>
             <p class="p-show"><b>Situação:</b> {{ $os->status->status }}</p>
             <p class="p-show"><b>Equipamento:</b> {{ $os->equipamento }}</p>
             <p class="p-show"><b>Descrição:</b> {{ $os->descrição }}</p>

@@ -34,9 +34,9 @@ Criar chamado
           <div class="form-group mt-1 mb-2 col-6">
             <select class="form-select" name = "atribuido_tecnico" aria-label="Técnico atribuído" >
               <option selected>Escolha o técnico</option>
-              <option >Edilson (Bá)</option>
-              <option >André</option>
-              <option >Giba</option>
+              @foreach(findTecnicos() as $id => $nome)
+                <option value="{{$id}}">{{$nome}}</option>
+              @endforeach
             </select>
           </div>
         </div>

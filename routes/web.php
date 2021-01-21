@@ -20,3 +20,7 @@ Route::post('/os/{id}/solucaoStore', 'OsController@solucaoStore')->name('os.solu
 
 //Route::delete('os/{id}', 'OsController@destroy')->name('os.destroy');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAcompanhamentosTable extends Migration
+class CreateSolucaoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateAcompanhamentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('acompanhamentos', function (Blueprint $table) {
+        Schema::create('solucao', function (Blueprint $table) {
             $table->id('id');
             $table->string('requerente');
             $table->string('descricao');
             $table->unsignedBigInteger('ordens_servico_id');
-            $table->timestamps();
-
+            
+            $table->integer('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users');
             $table->foreign('ordens_servico_id')->references('id')->on('os');
+            
+            $table->timestamps();
         });
     }
 
@@ -31,6 +34,6 @@ class CreateAcompanhamentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acompanhamentos');
+        Schema::dropIfExists('solucao');
     }
 }

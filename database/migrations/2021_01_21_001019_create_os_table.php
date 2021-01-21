@@ -21,9 +21,12 @@ class CreateOsTable extends Migration
             $table->string('equipamento');
             $table->string('descrição');
             $table->unsignedBigInteger('status_id');
-            $table->timestamps();
-
+            
             $table->foreign('status_id')->references('id')->on('status');
+            $table->integer('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users');
+            
+            $table->timestamps();
             $table->softDeletes();
         });
         

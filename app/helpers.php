@@ -11,11 +11,18 @@ function productImagePath($image_name)
     return public_path('images/products/'.$image_name);
 }
 
+function userIsTecnico($user){
+    if($user->minRoleID($user) == 3){
+        return true;
+    } 
+    return false;
+}
+
 function findTecnicos(){
     $users = User::all();
     $tecnicos = [];
     foreach($users as $user){
-        if($user->roleID($user) == 3){
+        if(userIsTecnico($user)){
             $tecnicos[$user->id] = $user->name;
         }
     }

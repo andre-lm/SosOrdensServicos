@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\OsRequest;
 use App\Http\Requests\AcompanhamentoRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Os;
 use App\Acompanhamento;
 use App\Solucao;
@@ -72,7 +73,7 @@ class OsController extends Controller
         $os = Os::find($id);
 
         //$os->nome_autor = $request->nome_autor;
-        $os->atribuido_tecnico = $request->atribuido_tecnico;
+        $os->id_user = $request->atribuido_tecnico;
         $os->equipamento = $request->equipamento;
         $os->titulo = $request->titulo;
         $os->descrição = $request->descrição;
@@ -97,7 +98,8 @@ class OsController extends Controller
     public function acompanhamento($id)
     {        
         $os = Os::findOrFail($id);
-        return view('os.acompanhamento', compact('os'));
+        $user = (Auth::user()) ? Auth::user() : '';
+        return view('os.acompanhamento', compact('os','user'));
     }
 
     public function acompanhamentoStore($os_id, AcompanhamentoRequest $request)
@@ -105,7 +107,8 @@ class OsController extends Controller
         $acompanhamento = new Acompanhamento;
         DB::beginTransaction();
         try {
-            $acompanhamento->requerente = $request->requerente;
+            if($request->requerente) $acompanhamento->requerente = $request->requerente;
+            if($request->id_user) $acompanhamento->id_user = $request->id_user;
             $acompanhamento->descricao = $request->descrição;
             $acompanhamento->ordens_servico_id = $os_id;
             $acompanhamento->save();
@@ -125,7 +128,8 @@ class OsController extends Controller
     public function solucao($id)
     {        
         $os = Os::findOrFail($id);
-        return view('os.solucao', compact('os'));
+        $user = (Auth::user()) ? Auth::user() : '';
+        return view('os.solucao', compact('os','user'));
     }
 
     public function solucaoStore($os_id, AcompanhamentoRequest $request)
@@ -133,7 +137,8 @@ class OsController extends Controller
         $solucao = new Solucao;
         DB::beginTransaction();
         try {
-            $solucao->requerente = $request->requerente;
+            if($request->requerente) $solucao->requerente = $request->requerente;
+            if($request->id_user) $solucao->id_user = $request->id_user;
             $solucao->descricao = $request->descrição;
             $solucao->ordens_servico_id = $os_id;
             $solucao->save();
@@ -149,4 +154,5 @@ class OsController extends Controller
         }
        
     }
+
 }

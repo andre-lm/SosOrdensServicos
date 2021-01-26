@@ -15,11 +15,11 @@ class CreateAcompanhamentosTable extends Migration
     {
         Schema::create('acompanhamentos', function (Blueprint $table) {
             $table->id('id');
-            $table->string('requerente');
+            $table->string('requerente')->nullable();
             $table->string('descricao');
             $table->unsignedBigInteger('ordens_servico_id');
             
-            $table->integer('id_user')->unsigned();
+            $table->integer('id_user')->unsigned()->nullable();;
             $table->foreign('id_user')->references('id')->on('users');
             $table->foreign('ordens_servico_id')->references('id')->on('os');
             

@@ -24,7 +24,7 @@ class AcompanhamentoRequest extends FormRequest
     public function rules()
     {
         return [
-            'requerente'    => 'required|min:3',
+            //'requerente'    => 'required|min:3',
             'descrição'     => 'required|min:10'
         ];
     }

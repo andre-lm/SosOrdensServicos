@@ -29,10 +29,18 @@ Solução
     <form action="{{ route('os.solucaoStore',$os->id) }}" method="POST">
       @csrf
 
-      <div class="form-group mt-1 mb-2">
-        <label for="requerente">Requerente</label>
-        <input type="text" id="requerente" class="form-control" name = "requerente">
-      </div>
+      @if(isset($user) && !empty($user))
+        <input type="hidden" value="{{$user->id}}" name = "id_user">
+        <div class="form-group mt-1 mb-2">
+          <label for="requerente">Autor</label>
+          <input type="text" id="requerente" class="form-control" value="{{$user->name}}" name="user_name" disabled>
+        </div>
+      @else
+        <div class="form-group mt-1 mb-2">
+          <label for="requerente">Autor</label>
+          <input type="text" id="requerente" class="form-control" name = "requerente">
+        </div>
+      @endif
 
       <div class="form-group mt-1 mb-2">
         <label for="desc">Descrição</label>

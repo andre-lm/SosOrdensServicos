@@ -57,13 +57,15 @@ class User extends Authenticatable
         return $user->id === Auth::user()->id; // User must not be null
     }
 
+    //retorna o nome do usuario
     public function roleName($user) {
         $role_id = $user->user_roles->min('role_id');
         $role = Roles::find($role_id);
         return $role->attributes['description'];
     }
 
-    public function roleID($user) {
+    //retorna o id da menor role do usuario
+    public function minRoleID($user) {
         $role_id = $user->user_roles->min('role_id');
         $role = Roles::find($role_id);
         return $role->attributes['id'];

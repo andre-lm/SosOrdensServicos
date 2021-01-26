@@ -32,9 +32,9 @@ Editar chamado
           <div class="form-group mt-1 mb-2 col-12">
             <label>Técnico</label>
             <select name = "atribuido_tecnico" class="form-select" >
-              <option {{ $os->atribuido_tecnico == 'Edilson' ? 'selected' : '' }}>Edilson (Bá)</option>
-              <option {{ $os->atribuido_tecnico == 'André' ? 'selected' : '' }}>André</option>
-              <option {{ $os->atribuido_tecnico == 'Giba' ? 'selected' : '' }}>Giba</option>
+              @foreach(findTecnicos() as $id => $nome)
+                <option value="{{$id}}">{{$nome}}</option>
+              @endforeach
             </select>
           </div>
         </div>

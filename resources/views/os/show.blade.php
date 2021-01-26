@@ -28,7 +28,7 @@ Visualizar chamado
             <p class="p-show"><b>Nome do autor da criação:</b> {{ $os->nome_autor }}</p>
             <p class="p-show"><b>Título:</b> {{ $os->titulo }}</p>
             <p class="p-show"><b>Técnico:</b> {{ $os->userName($os->id_user) }}</p>
-            <p class="p-show"><b>Situação:</b> {{ $os->status->status }}</p>
+            <p class="p-show"><b>Situação:</b> <span class="badge {{($os->status->id==1)? 'badge-success' : (($os->status->id==2)? 'badge-warning' : 'badge-danger')}}">{{ $os->status->status }}</span></p>
             <p class="p-show"><b>Equipamento:</b> {{ $os->equipamento }}</p>
             <p class="p-show"><b>Descrição:</b> {{ $os->descrição }}</p>
             @php
@@ -60,7 +60,7 @@ Visualizar chamado
             @foreach($os->Acompanhamento as $acomp)
                 <div class="collapse show-acomp" id="acomp">
                     <blockquote class="blockquote d-block">
-                        <footer class="blockquote-footer"><b>Requerente: </b>{{$acomp->requerente}}</footer>
+                        <footer class="blockquote-footer"><b>Requerente: </b>{{($acomp->id_user) ? $acomp->userName($acomp->id_user) : $acomp->requerente}}</footer>
                         <footer class="blockquote-footer"><b>Descrição: </b>{{$acomp->descricao}} </footer>
                     </blockquote>
                 </div>
@@ -69,7 +69,7 @@ Visualizar chamado
             @foreach($os->Solucao as $solucao)
             <div class="collapse show-solucao" id="solucao">
                 <blockquote class="blockquote d-block">
-                    <footer class="blockquote-footer"><b>Requerente: </b>{{$solucao->requerente}}</footer>
+                    <footer class="blockquote-footer"><b>Requerente: </b>{{($solucao->id_user) ? $solucao->userName($solucao->id_user) : $solucao->requerente}}</footer>
                     <footer class="blockquote-footer"><b>Descrição: </b>{{$solucao->descricao}} </footer>
                 </blockquote>
                   

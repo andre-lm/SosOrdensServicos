@@ -10,6 +10,7 @@ use App\Roles;
 use App\UserRoles;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Os;
 
 class UserController extends Controller
 {
@@ -110,5 +111,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    
+    public function meusChamados($user_id){
+        $NewOrdens = Os::where('id_user', $user_id)->where('status_id',1)->get();
+        $ordens = Os::where('id_user', $user_id)->where('status_id',2)->get();
+        return view('users.chamados', compact('NewOrdens','ordens'));
     }
 }

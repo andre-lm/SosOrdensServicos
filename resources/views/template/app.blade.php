@@ -47,10 +47,12 @@
                                 <a class="dropdown-item" href="{{ route('user.show',Auth::user()->id) }}" >
                                     Meu Perfil
                                 </a>
-                                <a class="dropdown-item" href="{{ route('user.create')}}" >
+                                @if(userIsTecnico(Auth::user()))
+                                <a class="dropdown-item" href="{{ route('user.meusChamados', Auth::user()->id)}}" >
                                     Meus chamados 
-                                    <span class="badge badge-danger">{{countOs(Auth::user())}}</span>
+                                    <span class="badge badge-success">{{countOs(Auth::user())}}</span>
                                 </a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('user.create')}}" >
                                     Cadastrar
                                 </a>

@@ -13,6 +13,7 @@ Route::get('/', function() {
 //GET
 Route::get('/os/{id}/acompanhamento', 'OsController@acompanhamento')->name('os.acompanhamento');
 Route::get('/os/{id}/solucao', 'OsController@solucao')->name('os.solucao');
+Route::get('/user/{id}/meusChamados', 'UserController@meusChamados')->name('user.meusChamados');
 
 //POST
 Route::post('/os/{id}/acompanhamentoStore', 'OsController@acompanhamentoStore')->name('os.acompanhamentoStore');

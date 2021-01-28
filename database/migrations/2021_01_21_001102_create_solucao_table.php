@@ -18,6 +18,7 @@ class CreateSolucaoTable extends Migration
             $table->string('requerente');
             $table->string('descricao');
             $table->unsignedBigInteger('ordens_servico_id');
+            $table->timestamp('created_at')->nullable();
             
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users');

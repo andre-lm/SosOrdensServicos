@@ -62,6 +62,7 @@ Visualizar chamado
                     <blockquote class="blockquote d-block">
                         <footer class="blockquote-footer"><b>Requerente: </b>{{($acomp->id_user) ? $acomp->userName($acomp->id_user) : $acomp->requerente}}</footer>
                         <footer class="blockquote-footer"><b>Descrição: </b>{{$acomp->descricao}} </footer>
+                        <footer class="blockquote-footer"><b>Data: </b>{{$acomp->created_at}} </footer>
                     </blockquote>
                 </div>
             @endforeach
@@ -71,6 +72,7 @@ Visualizar chamado
                 <blockquote class="blockquote d-block">
                     <footer class="blockquote-footer"><b>Requerente: </b>{{($solucao->id_user) ? $solucao->userName($solucao->id_user) : $solucao->requerente}}</footer>
                     <footer class="blockquote-footer"><b>Descrição: </b>{{$solucao->descricao}} </footer>
+                    <footer class="blockquote-footer"><b>Data: </b>{{$solucao->created_at}} </footer>
                 </blockquote>
                   
                 </div>

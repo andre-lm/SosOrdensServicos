@@ -7,25 +7,14 @@ Chamados
 @section('content')
 <div class="card" style="margin: 1em;">
   <div class="card-body col-12">
-      @if (session('status'))
-          <div class="alert alert-success">
-              {{ session('status') }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-      @endif
 
       <div class="text-center text-secondary mb-1">
+          <a class="btn btn-secondary mb-3" href="{{ route('os.create') }}">Criar Novo Chamado</a>
+          <br>
           {{'Total de '.$count.' registros - Exibindo '.$ordemservico->count().' por página'}}
       </div>
 
     <table class="table table-hover">
-      @if (session('status'))
-        <div class="alert alert-successmt-1 mb-1 p-2 ">
-            {{ session('status') }}
-        </div>
-      @endif
 
       <thead class="">
           <tr> 

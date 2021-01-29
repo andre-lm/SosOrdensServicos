@@ -7,33 +7,23 @@ Criar chamado
 @section('content')
 
 <div class="card " style="margin: 0 6em; padding:10px">
-    @if(isset($errors) && count($errors)>0)
-        <div class="alert text-center mt-1 mb-1 p-2 alert-danger alert-error">
-          @foreach($errors->all() as $erro)
-              {{$erro}}<br>
-          @endforeach
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-    @endif
 
     <div class="text-center">
         <span class="float-center">
            <h4>Criar chamado</h4>
         </span>
     </div>
-    <form action="{{ route('os.store') }}" method="POST">
+    <form action="{{ route('os.store') }}" id="formOS" method="POST">
 
       @csrf
         <div class="row">
           <div class="form-group mt-1 mb-2 col-6">
-            <input type="text" class="form-control" placeholder="Autor" aria-label="Autor" name = "nome_autor">
+            <input type="text" class="form-control" placeholder="Autor" value="{{(!empty($user)&&$user->name) ? $user->name : ''}}" aria-label="Autor" id="nome_autor" name="nome_autor">
           </div>
 
           <div class="form-group mt-1 mb-2 col-6">
-            <select class="form-select" name = "atribuido_tecnico" aria-label="Técnico atribuído" >
-              <option selected>Escolha o técnico</option>
+            <select class="form-select" id="atribuido_tecnico" name="atribuido_tecnico" aria-label="Técnico atribuído" >
+              <option value="" selected>Escolha o técnico</option>
               @foreach(findTecnicos() as $id => $nome)
                 <option value="{{$id}}">{{$nome}}</option>
               @endforeach
@@ -42,15 +32,15 @@ Criar chamado
         </div>
 
         <div class="form-group mt-1 mb-2">
-          <input type="text" class="form-control" placeholder="Nome do Equipamento" aria-label="Nome do Equipamento" name = "equipamento">
+          <input type="text" class="form-control" placeholder="Nome do Equipamento" aria-label="Nome do Equipamento" id="equipamento" name="equipamento">
         </div>
      
         <div class="form-group mt-1 mb-2">
-          <input type="text" class="form-control" placeholder="Titulo" aria-label="Titulo" name = "titulo">
+          <input type="text" class="form-control" placeholder="Titulo" aria-label="Titulo" id="titulo" name = "titulo">
         </div>
         
         <div class="form-group mt-1 mb-2 form-floating">
-            <textarea class="form-control" placeholder="Descrição"  name = "descrição" style="height: 100px"></textarea>
+            <textarea class="form-control" placeholder="Descrição" id="descrição" name="descrição" style="height: 100px"></textarea>
             <label for="floatingTextarea2">Descrição</label>
         </div>
         <br>
@@ -62,3 +52,10 @@ Criar chamado
 </div>
 @endsection
 
+@section('scripts')
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+<script src="http://jqueryvalidation.org/files/dist
+/additional-methods.min.js"></script>
+
+<script src="{{ asset('js/validacao.js')}}"></script>
+@endsection

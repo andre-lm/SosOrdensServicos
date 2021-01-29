@@ -82,3 +82,12 @@ ul.navbar-nav{
 hr{
     margin: 1rem 5rem;
 }
+
+.error{
+    font-size: 0.9em;
+    color: #dc3545;
+}
+
+input.error, textarea.error, select.error{
+    border: 1px solid #dc3545;
+}

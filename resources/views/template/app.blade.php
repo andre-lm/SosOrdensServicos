@@ -22,11 +22,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
-                        @if (Route::has('register'))
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
-                            </li> -->
-                        @endif
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -69,19 +64,16 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Chamados</a>
-                    </li>
-                    <li class="nav-item">
                     <a class="nav-link" href="{{ route('os.create') }}">Criar Chamado</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Em Aberto</a>
+                    <a class="nav-link" href="{{route('emAberto')}}">Em Aberto</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Em Atendimento</a>
+                    <a class="nav-link" href="{{route('emAtendimento')}}">Em Atendimento</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Encerrados</a>
+                    <a class="nav-link" href="{{route('encerrados')}}">Encerrados</a>
                     </li>
                 </ul>
 
@@ -90,6 +82,8 @@
     </nav>
 
     <main class="py-4">
+            @include('flash-message')
+
             @yield('content')
     </main>
 
@@ -105,5 +99,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="{{ asset('js/javascript.js')}}"></script>
+
+        @yield('scripts')
     </body>
 </html>

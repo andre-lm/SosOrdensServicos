@@ -1,24 +1,14 @@
 @extends('template.app')
 
 @section('title')
-Solução
+Acompanhamento
 @endsection 
 
 @section('content')
 
 <div class="card " style="margin: 0.5em 6em;">
   <div class="card-header text-center">
-    @if(isset($errors) && count($errors)>0)
-        <div class="alert text-center mt-1 mb-1 p-2 alert-danger alert-error">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          @foreach($errors->all() as $erro)
-              {{$erro}}<br>
-          @endforeach
-        </div>
-    @endif
-
+  
     <span class="float-center">
         <h5> Chamado - ID. {{ $os->id }}</h5>
         <h4>{{$os->titulo}}</h4>
@@ -26,7 +16,7 @@ Solução
     </span>
   </div>
   <div class="card-body">
-    <form action="{{ route('os.acompanhamentoStore',$os->id) }}" method="POST">
+    <form action="{{ route('os.acompanhamentoStore',$os->id) }}" id="formAd" method="POST">
     @csrf
     
     @if(isset($user) && !empty($user))
@@ -58,4 +48,11 @@ Solução
   </div>
 </div>
 
+@endsection
+@section('scripts')
+  <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+  <script src="http://jqueryvalidation.org/files/dist
+  /additional-methods.min.js"></script>
+
+  <script src="{{ asset('js/validacao.js')}}"></script>
 @endsection

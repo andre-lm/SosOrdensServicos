@@ -9,14 +9,6 @@ Visualizar chamado
 <div class="card " style="margin: 0.5em 6em;">
     
     <div class="card-header text-center">
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
         <span class="float-center">
             <h5> Chamado - ID {{ $os->id }}</h5>
             <h4>{{$os->titulo}}</h4>
@@ -31,11 +23,7 @@ Visualizar chamado
             <p class="p-show"><b>Situação:</b> <span class="badge {{($os->status->id==1)? 'badge-success' : (($os->status->id==2)? 'badge-warning' : 'badge-danger')}}">{{ $os->status->status }}</span></p>
             <p class="p-show"><b>Equipamento:</b> {{ $os->equipamento }}</p>
             <p class="p-show"><b>Descrição:</b> {{ $os->descrição }}</p>
-            @php
-            $result = new DateTime($os->created_at);
-            $created_at = $result->format("d/m/Y");
-            @endphp
-            <p class="p-show"><b>Data de criação:</b> {{ $created_at }}</p>
+            <p class="p-show"><b>Data de criação:</b> {{ dateToPTBR($os->created_at) }}</p>
             <a href="{{ route('os.acompanhamento', $os->id) }}" class="btn btn-secondary">Acompanhamento</a>
             <a href="{{ route('os.solucao', $os->id) }}" class = "btn btn-success">Solução</a>
             <a href="{{ route('os.edit', $os->id) }}" class = "btn btn-primary">Editar</a>
@@ -62,6 +50,7 @@ Visualizar chamado
                     <blockquote class="blockquote d-block">
                         <footer class="blockquote-footer"><b>Requerente: </b>{{($acomp->id_user) ? $acomp->userName($acomp->id_user) : $acomp->requerente}}</footer>
                         <footer class="blockquote-footer"><b>Descrição: </b>{{$acomp->descricao}} </footer>
+                        <footer class="blockquote-footer"><b>Data: </b>{{ dateToPTBR($acomp->created_at)}} </footer>
                     </blockquote>
                 </div>
             @endforeach
@@ -71,6 +60,7 @@ Visualizar chamado
                 <blockquote class="blockquote d-block">
                     <footer class="blockquote-footer"><b>Requerente: </b>{{($solucao->id_user) ? $solucao->userName($solucao->id_user) : $solucao->requerente}}</footer>
                     <footer class="blockquote-footer"><b>Descrição: </b>{{$solucao->descricao}} </footer>
+                    <footer class="blockquote-footer"><b>Data: </b>{{ dateToPTBR($solucao->created_at)}} </footer>
                 </blockquote>
                   
                 </div>

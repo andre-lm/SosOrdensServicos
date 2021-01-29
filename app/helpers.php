@@ -5,6 +5,10 @@ use App\User;
 function changeDateFormate($date,$date_format){
     return \Carbon\Carbon::createFromFormat('Y-m-d', $date)->format($date_format);    
 }
+function dateToPTBR($date){
+    $result = new DateTime($date);
+    return $result->format("d/m/Y"); 
+}
    
 function productImagePath($image_name)
 {

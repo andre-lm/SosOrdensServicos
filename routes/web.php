@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Route::resource('/os', 'OsController');
-Route::resource('/user', 'UserController');
+Route::resources([
+    '/os'=> 'OsController',
+    '/user'=> 'UserController',
+]);
 
 Route::get('/', function() {
     return redirect('os');
@@ -13,6 +15,11 @@ Route::get('/', function() {
 //GET
 Route::get('/os/{id}/acompanhamento', 'OsController@acompanhamento')->name('os.acompanhamento');
 Route::get('/os/{id}/solucao', 'OsController@solucao')->name('os.solucao');
+
+Route::get('/emAberto', 'OsController@emAberto')->name('emAberto');
+Route::get('/emAtendimento', 'OsController@emAtendimento')->name('emAtendimento');
+Route::get('/encerrados', ['as' => 'encerrados', 'uses' => 'OsController@encerrados']);
+
 Route::get('/user/{id}/meusChamados', 'UserController@meusChamados')->name('user.meusChamados');
 
 //POST

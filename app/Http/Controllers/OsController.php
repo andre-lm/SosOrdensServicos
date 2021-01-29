@@ -29,9 +29,40 @@ class OsController extends Controller
         return view('os.index', compact('ordemservico','count'));
     }
 
+    public function emAberto()
+    {
+        $ordemservico = $this->os->where('status_id',1)->paginate(5);
+        $count = $this->os->where('status_id',1)->count();
+        if($count == 0){
+            return view('os.index', compact('ordemservico','count'), ['warning'=> 'Não existe nenhuma Os em aberto']);
+        }
+        return view('os.index', compact('ordemservico','count'));
+    }
+
+    public function emAtendimento()
+    {
+        $ordemservico = $this->os->where('status_id',2)->paginate(5);
+        $count = $this->os->where('status_id',2)->count();
+        if($count == 0){
+            return view('os.index', compact('ordemservico','count'), ['warning'=> 'Não existe nenhuma Os em atendimento']);
+        }
+        return view('os.index', compact('ordemservico','count'));
+    }
+
+    public function encerrados()
+    {
+        $ordemservico = $this->os->where('status_id',3)->paginate(5); 
+        $count = $this->os->where('status_id',3)->count();
+        if($count == 0){
+            return view('os.index', compact('ordemservico','count'), ['warning'=> 'Não existe nenhuma Os encerrada']);
+        }
+        return view('os.index', compact('ordemservico','count'));
+    }
+
     public function create()
     {
-        return view('os.create');
+        $user = (Auth::user()) ? Auth::user() : '';
+        return view('os.create', compact('user'));
     }
 
     public function store(OsRequest $request)
@@ -49,7 +80,7 @@ class OsController extends Controller
             $os->save();
 
             DB::commit();
-            return redirect()->route('os.index')->with('status', "Chamado ID $os->id cadastrado com sucesso" );
+            return redirect()->route('os.index')->with('success', "Chamado ID $os->id cadastrado com sucesso" );
         }  catch (ModelNotFoundException $exception) {
             return back()->withError($exception->getMessage())->withInput();
         }
@@ -83,7 +114,7 @@ class OsController extends Controller
         //Metodo alternativo, atualização em massa
         //Os::create($request->all());
 
-        return redirect()->route('os.index')->with('status', "Os ID $os->id atualizada com sucesso" );;
+        return redirect()->route('os.show', $id)->with('success', "Os ID $os->id atualizada com sucesso" );;
     }
 
     public function destroy($id)
@@ -118,7 +149,7 @@ class OsController extends Controller
             $os->update();
            
             DB::commit();
-            return redirect()->route('os.show',$os_id)->with('status', 'Acompanhamento criado com sucesso!');
+            return redirect()->route('os.show',$os_id)->with('success', 'Acompanhamento criado com sucesso!');
         }  catch (ModelNotFoundException $exception) {
             return back()->withError($exception->getMessage())->withInput();
         }
@@ -148,7 +179,7 @@ class OsController extends Controller
             $os->update();
             
             DB::commit();
-            return redirect()->route('os.show',$os_id)->with('status', 'Chamado encerrado com sucesso!' );
+            return redirect()->route('os.show',$os_id)->with('success', 'Chamado encerrado com sucesso!' );
         }  catch (ModelNotFoundException $exception) {
             return back()->withError($exception->getMessage())->withInput();
         }

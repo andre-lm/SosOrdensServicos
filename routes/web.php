@@ -30,7 +30,8 @@ Route::post('/os/{id}/solucaoStore', 'OsController@solucaoStore')->name('os.solu
 
 
 //DELETE
-
+Route::delete('/acompanhamento/{id}', 'OsController@acompanhamentoDestroy');
+Route::delete('/solucao/{id}', 'OsController@solucaoDestroy');
 
 Auth::routes();
 

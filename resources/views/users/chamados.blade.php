@@ -6,8 +6,10 @@ Meus chamados
 
 @section('content')
 
-@foreach($NewOrdens as $os)
+@if(isset($NewOrdens[0]))
 <h3 class="text-center">Novos chamados</h3>
+@endif
+@foreach($NewOrdens as $os)
 <div class="card" style="margin: 1em 15em;">
     
     <div class="card-header text-center {{($os->status->id==1)? 'alert-success' : 'alert-warning' }}">
@@ -36,8 +38,10 @@ Meus chamados
 
 <br><hr><br>
 
-@foreach($ordens as $os)
+@if(isset($ordens[0]))
 <h3 class="text-center"> Chamados em Atendimento</h3>
+@endif
+@foreach($ordens as $os)
 <div class="card" style="margin: 1em 15em;">
     <div class="card-header text-center {{($os->status->id==1)? 'alert-success' : 'alert-warning' }}">
         <span class="float-center">

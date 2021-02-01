@@ -24,7 +24,7 @@
 @if ($message = Session::get('warning') || isset($warning))
 <div class="alert alert-warning alert-block" style="margin: 0 2em;">
     <button type="button" class="close" data-dismiss="alert">×</button>    
-    <strong>{{ (Session::get('warning')) ? $message : (($warning) ? $warning : '' ) }}</strong>
+    <strong>{{ (Session::get('warning')) ? Session::get('warning') : (($warning) ? $warning : '' ) }}</strong>
 </div>
 @endif
    

@@ -32,7 +32,11 @@ class UserController extends Controller
     public function create()
     {
         $roles= Roles::all();
-        return view('users.create', compact('roles'));
+        if(Auth::user()){
+            return view('users.create', compact('roles'));
+        }else{
+            return redirect()->route('login')->with('warning',"Faça login primeiro");
+        }
     }
 
     /**

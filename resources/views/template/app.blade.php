@@ -45,7 +45,9 @@
                                 @if(userIsTecnico(Auth::user()))
                                 <a class="dropdown-item" href="{{ route('user.meusChamados', Auth::user()->id)}}" >
                                     Meus chamados 
+                                    @if(countOs(Auth::user()) > 0)
                                     <span class="badge badge-success">{{countOs(Auth::user())}}</span>
+                                    @endif
                                 </a>
                                 @endif
                                 <a class="dropdown-item" href="{{ route('user.create')}}" >
@@ -95,9 +97,11 @@
 
         <script src="{{ asset('js/jquery-3.5.1.min.js')}}"></script>
         <script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ asset('plugins/jquery-confirm-v3.3.4/css/jquery-confirm.css')}}">
+        <script src="{{ asset('plugins/jquery-confirm-v3.3.4/js/jquery-confirm.js')}}"></script>
         <script src="{{ asset('js/javascript.js')}}"></script>
 
         @yield('scripts')

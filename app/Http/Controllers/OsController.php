@@ -62,6 +62,10 @@ class OsController extends Controller
     public function create()
     {
         $user = (Auth::user()) ? Auth::user() : '';
+        $tecnicos = count(findTecnicos());
+        if($tecnicos < 1){
+            return redirect()->route('user.create')->with('error', 'Obrigatório ter um técnico cadastrado');
+        }
         return view('os.create', compact('user'));
     }
 
@@ -114,16 +118,18 @@ class OsController extends Controller
         //Metodo alternativo, atualização em massa
         //Os::create($request->all());
 
-        return redirect()->route('os.show', $id)->with('success', "Os ID $os->id atualizada com sucesso" );;
+        return redirect()->route('os.show', $id)->with('success', "Os ID $os->id atualizada com sucesso" );
     }
 
     public function destroy($id)
     {
-        $os = Os::find($id);
-        $os->delete();
-
-        return redirect()->route('os.index');
-
+        try{
+            $os = Os::find($id);
+            $os->delete();
+            return ['status'=>1,'msg'=>"Os ID $os->id excluída com sucesso" ];
+        }catch (ModelNotFoundException $exception) {
+            return ['status'=>'erro','msg'=>'Não foi possível realizar essa ação!'];
+        }
     }
 
     public function acompanhamento($id)
@@ -156,6 +162,30 @@ class OsController extends Controller
        
     }
 
+    public function acompanhamentoDestroy($id)
+    {
+        try{
+            $acompanhamento = Acompanhamento::find($id);
+            $acompanhamento->delete();
+            $os_status = "";
+
+            $os = Os::find($acompanhamento->ordens_servico_id);
+            $count = $os->Acompanhamento->count();
+            $countSolucao = $os->Solucao->count();
+            //se só houver uma acompanhamento, e não houver nenhuma solução voltar pra status 1
+            if($count==0 && $os->status_id==2 && $countSolucao == 0){
+                $os->status_id = 1;
+                $os->update();
+                $os_status = "Em aberto";
+            }
+
+            return ['status'=>1,'msg'=>"Acompanhamento excluído com sucesso", "os_status"=>$os_status];
+        }catch (ModelNotFoundException $exception) {
+            return ['status'=>'erro','msg'=>'Não foi possível realizar essa ação!'];
+        }
+    }
+
+
     public function solucao($id)
     {        
         $os = Os::findOrFail($id);
@@ -179,11 +209,33 @@ class OsController extends Controller
             $os->update();
             
             DB::commit();
-            return redirect()->route('os.show',$os_id)->with('success', 'Chamado encerrado com sucesso!' );
+            return redirect()->route('os.show',$os_id)->with('success', 'Solução criada e chamado encerrado com sucesso!' );
         }  catch (ModelNotFoundException $exception) {
             return back()->withError($exception->getMessage())->withInput();
         }
        
+    }
+
+    public function solucaoDestroy($id)
+    {
+        try{
+            $solucao = Solucao::find($id);
+            $solucao->delete();
+            $os_status = "";
+           
+            $os = Os::find($solucao->ordens_servico_id);
+            //se só houver uma solucao, voltar pra status 2
+            $count = $os->Solucao->count();
+            if($count==0 && $os->status_id==3){
+                $os->status_id = 2;
+                $os->update();
+                $os_status = "Em atendimento";
+            }
+
+            return ['status'=>1,'msg'=>"Solução excluída com sucesso", "os_status"=>$os_status];
+        }catch (ModelNotFoundException $exception) {
+            return ['status'=>'erro','msg'=>'Não foi possível realizar essa ação!'];
+        }
     }
 
 }

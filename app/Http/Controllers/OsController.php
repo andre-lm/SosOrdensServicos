@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Os;
 use App\Acompanhamento;
 use App\Solucao;
+use App\Exports\OsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OsController extends Controller
 {
@@ -61,6 +63,9 @@ class OsController extends Controller
 
     public function create()
     {
+        if(!Auth::user()){
+            return redirect()->route('login')->with('warning',"É obrigatório fazer login.");
+        }
         $user = (Auth::user()) ? Auth::user() : '';
         $tecnicos = count(findTecnicos());
         if($tecnicos < 1){
@@ -92,8 +97,11 @@ class OsController extends Controller
 
     public function edit($id)
     {
-        $os = Os::findOrFail($id);
+        if(!Auth::user()){
+            return redirect()->route('login')->with('warning',"É obrigatório fazer login.");
+        }
 
+        $os = Os::findOrFail($id);
         return view('os.edit', compact('os'));
     }
 
@@ -123,6 +131,10 @@ class OsController extends Controller
 
     public function destroy($id)
     {
+        if(!Auth::user()){
+            return ['status'=>'erro','msg'=>'Não foi possível realizar essa ação! Você precisa estar logado!'];
+        }
+
         try{
             $os = Os::find($id);
             $os->delete();
@@ -134,6 +146,9 @@ class OsController extends Controller
 
     public function acompanhamento($id)
     {        
+        if(!Auth::user()){
+            return redirect()->route('login');
+        }
         $os = Os::findOrFail($id);
         $user = (Auth::user()) ? Auth::user() : '';
         return view('os.acompanhamento', compact('os','user'));
@@ -164,6 +179,9 @@ class OsController extends Controller
 
     public function acompanhamentoDestroy($id)
     {
+        if(!Auth::user()){
+            return ['status'=>'erro','msg'=>'Não foi possível realizar essa ação! Você precisa estar logado.'];
+        }
         try{
             $acompanhamento = Acompanhamento::find($id);
             $acompanhamento->delete();
@@ -188,6 +206,9 @@ class OsController extends Controller
 
     public function solucao($id)
     {        
+        if(!Auth::user()){
+            return redirect()->route('login');
+        }
         $os = Os::findOrFail($id);
         $user = (Auth::user()) ? Auth::user() : '';
         return view('os.solucao', compact('os','user'));
@@ -218,6 +239,10 @@ class OsController extends Controller
 
     public function solucaoDestroy($id)
     {
+        if(!Auth::user()){
+            return ['status'=>'erro','msg'=>'Não foi possível realizar essa ação! Você precisa estar logado.'];
+        }
+
         try{
             $solucao = Solucao::find($id);
             $solucao->delete();
@@ -238,4 +263,8 @@ class OsController extends Controller
         }
     }
 
+    public function export() 
+    {
+        return Excel::download(new OsExport, 'ordens_servicos.xlsx');
+    }
 }

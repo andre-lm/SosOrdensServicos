@@ -7,7 +7,7 @@ function changeDateFormate($date,$date_format){
 }
 function dateToPTBR($date){
     $result = new DateTime($date);
-    return $result->format("d/m/Y"); 
+    return $result->format("d/m/Y h:m:s"); 
 }
    
 function productImagePath($image_name)

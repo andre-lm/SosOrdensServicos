@@ -10,6 +10,7 @@ Chamados
 
       <div class="text-center text-secondary mb-1">
           <a class="btn btn-secondary mb-3" href="{{ route('os.create') }}">Criar Novo Chamado</a>
+          <a class="btn btn-success mb-3" href="{{ route('os.export') }}">Exportar xls</a>
           <br>
           {{'Total de '.$count.' registros - Exibindo '.$ordemservico->count().' por página'}}
       </div>

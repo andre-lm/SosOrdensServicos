@@ -36,3 +36,5 @@ Route::delete('/solucao/{id}', 'OsController@solucaoDestroy');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('export/', 'OsController@export')->name('os.export');

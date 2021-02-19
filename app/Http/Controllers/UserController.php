@@ -30,10 +30,18 @@ class UserController extends Controller
     public function index()
     {
         //$users = User::all();
-        $users = $this->user->paginate(5);
-        $count = $this->user->all()->count();
+        if(Auth::user()){
+            if(userIsAdmin(Auth::user())){
+                $users = $this->user->paginate(5);
+                $count = $this->user->all()->count();
 
-        return view('users.index', compact('users', 'count'));
+                return view('users.index', compact('users', 'count'));
+            }else{
+                return redirect()->route('os.index');
+            }
+        }else{
+            return redirect()->route('login')->with('warning',"Faça login primeiro");
+        }
     }
 
     /**

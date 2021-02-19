@@ -14,7 +14,7 @@
     <nav class="navbar navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{route('os.index')}}">SOS Gerenciamento de Ordem de Serviço</a>
-            
+           
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
@@ -23,7 +23,8 @@
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                     @else
-                        <li class="nav-item dropdown">
+                    
+                        <li class="nav-item dropdown" style="display: inline;">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
@@ -42,6 +43,7 @@
                                 <a class="dropdown-item" href="{{ route('user.show',Auth::user()->id) }}" >
                                     Meu Perfil
                                 </a>
+
                                 @if(userIsTecnico(Auth::user()))
                                 <a class="dropdown-item" href="{{ route('user.meusChamados', Auth::user()->id)}}" >
                                     Meus chamados 
@@ -50,9 +52,14 @@
                                     @endif
                                 </a>
                                 @endif
+
                                 <a class="dropdown-item" href="{{ route('user.create')}}" >
                                     Cadastrar
                                 </a>
+
+                                @if(userIsAdmin(Auth::user()))
+                                    <a class="dropdown-item" href="{{ route('user.index')}}">{{ __('Gerenciar Usuarios') }}</a>
+                                @endif
                             </div>
                         </li>
                        
@@ -83,7 +90,7 @@
         </div>
     </nav>
 
-    <main class="py-4">
+    <main>
             @include('flash-message')
 
             @yield('content')

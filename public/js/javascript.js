@@ -1,3 +1,55 @@
+/*
+*Função para impedir bug nos níveis do usuario
+*/
+$(document).ready(function(){
+    if($('#roles')){
+        first = '';
+        
+        $('#roles').find('input').each(function(){
+            if($(this).prop('checked')==false && first==''){ //se nao encontrou o primeiro checkbox checked, desabilita botao
+                $(this).addClass('dis-able')
+            }
+            if($(this).prop('checked')==true && first==''){ //define o primeiro checkbox checked
+                first=$(this);
+            }
+            if(first !='' && $(this).attr('id') > first.attr('id')){ //definem todos os seguintes como desabilitados
+                if($(this).prop('checked')==true){
+                    $(this).addClass('dis-able')
+                }
+            }
+        })
+    }
+})
+
+/*
+* Função que manipula os níveis quando clicado
+*/
+$('.icheck').click(function(){
+    this_id = $(this).attr('id');
+    clicked = this;
+    $(this).parents('#roles').find('input').each(function(){
+        if($(this).attr('id') > this_id){
+            $(this).prop('checked', !$(this).prop("checked"));
+
+            if($(this).prop('checked')==true){
+                $(this).addClass('dis-able')
+            }
+            else{
+                if($(this).hasClass('dis-able')) $(this).removeClass('dis-able');
+            }
+            
+        }else if($(this).attr('id') < this_id){
+            if($(clicked).prop('checked')==true){
+                $(this).parents('.chb').hide();
+            }else{
+                $(this).parents('.chb').show();
+                if($(this).hasClass('dis-able')) $(this).removeClass('dis-able');
+            }
+        }
+    })
+})
+
+
 $(document).on('click', '.solucao', function(){
     if($('.show-acomp').hasClass('show')){
         $('.acompanhamento').click();
@@ -9,15 +61,7 @@ $(document).on('click', '.acompanhamento', function(){
     }
 })
 
-$('.icheck').click(function(){
-    this_id = $(this).attr('id');
-    $(this).parents('#roles').find('input').each(function(){
-        if($(this).attr('id') > this_id){
-            $(this).click();
-        }
-    })
-})
-
+//Função para para destroys
 $(document).on('click', '.js-del', function(){
     botao = this;
     $.confirm({
@@ -34,6 +78,7 @@ $(document).on('click', '.js-del', function(){
     });
 })
 
+//função assincrona para enviar dados para ajax e retornar resultado
 async function delElement(element){
     if($(botao).parents('div.col-6').find('.os_id').val() > 0){
         id=$(botao).parents('div.col-6').find('.os_id').val()
@@ -62,6 +107,7 @@ async function delElement(element){
     }
 }
 
+//realiza os ajax de destroy
 function realizarMudanca() {
     return { 
       destroy(id, token, url){
@@ -82,6 +128,7 @@ function realizarMudanca() {
     }
 }
 
+//retornar resultado de sucesso para html
 function reloadSuccess( result, element){
     $(".alert").remove();
     $('main').prepend(' <div class="alert alert-success alert-test" style="margin: 0 6em;">'+result.msg+'</div>')
@@ -100,6 +147,8 @@ function reloadSuccess( result, element){
         window.location.href = window.location.origin;
     }
 }
+
+//retornar resultado de erro para html
 function reloadError(msg){
     $(".alert").remove();
     $('main').prepend(' <div class="alert alert-danger alert-test" style="margin: 0 6em;">'+msg+'</div>')

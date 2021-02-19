@@ -44,7 +44,12 @@ class User extends Authenticatable
     public function roles() {
        //return $this->hasMany('App\Roles');
         return $this->belongsToMany(Roles::class,'user_roles');
-    }    
+    } 
+    
+    // public function roles() {
+    //     return $this->belongsToMany('App\Roles', 'user_roles');
+    //   }
+
 
     public function user_roles() {
         return $this->hasMany('App\UserRoles', 'user_id', 'id');
@@ -61,14 +66,14 @@ class User extends Authenticatable
 
     //retorna o nome do usuario
     public function roleName($user) {
-        $role_id = $user->user_roles->min('role_id');
+        $role_id = $user->user_roles->min('roles_id');
         $role = Roles::find($role_id);
         return $role->attributes['description'];
     }
 
     //retorna o id da menor role do usuario
     public function minRoleID($user) {
-        $role_id = $user->user_roles->min('role_id');
+        $role_id = $user->user_roles->min('roles_id');
         $role = Roles::find($role_id);
         return $role->attributes['id'];
     }

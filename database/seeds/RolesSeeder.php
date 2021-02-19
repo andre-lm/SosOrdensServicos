@@ -16,7 +16,7 @@ class RolesSeeder extends Seeder
             ['name'       => 'ROOT', 
             'description' => 'Desenvolvedor'],
             ['name'       => 'ADMIN', 
-            'description' => 'Responsavel pelos usuarios'],
+            'description' => 'Administrador'],
             ['name'        => 'TECNICO', 
             'description' => 'Tecnico responsavel'],
             ['name'        => 'USER', 

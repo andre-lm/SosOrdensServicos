@@ -6,7 +6,7 @@ Visualizar chamado
 
 @section('content')
 
-<div class="card " style="margin: 0.5em 6em;">
+<div class="card " style="margin: 1em 6em;">
     
     <div class="card-header text-center">
         <span class="float-center">
@@ -23,7 +23,7 @@ Visualizar chamado
             <p class="p-show"><b>Situação:</b> <span class="os_status badge {{($os->status->id==1)? 'badge-success' : (($os->status->id==2)? 'badge-warning' : 'badge-danger')}}">{{ $os->status->status }}</span></p>
             <p class="p-show"><b>Equipamento:</b> {{ $os->equipamento }}</p>
             <p class="p-show"><b>Descrição:</b> {{ $os->descrição }}</p>
-            <p class="p-show"><b>Data de criação:</b> {{ dateToPTBR($os->created_at) }}</p>
+            <p class="p-show"><b>Data de criação:</b> {{ datetimeToPTBR($os->created_at) }}</p>
             <a href="{{ route('os.acompanhamento', $os->id) }}" class="btn btn-secondary">Acompanhamento</a>
             <a href="{{ route('os.solucao', $os->id) }}" class = "btn btn-success">Solução</a>
             <a href="{{ route('os.edit', $os->id) }}" class = "btn btn-primary">Editar</a>
@@ -54,7 +54,7 @@ Visualizar chamado
                         <blockquote class="blockquote col-10">
                             <footer class="blockquote-footer"><b>Requerente: </b>{{($acomp->id_user) ? $acomp->userName($acomp->id_user) : $acomp->requerente}}</footer>
                             <footer class="blockquote-footer"><b>Descrição: </b>{{$acomp->descricao}} </footer>
-                            <footer class="blockquote-footer"><b>Data: </b>{{ dateToPTBR($acomp->created_at)}} </footer>
+                            <footer class="blockquote-footer"><b>Data: </b>{{ datetimeToPTBR($acomp->created_at)}} </footer>
                         </blockquote>
                         <div class="col-2 acomp p-0 mt-3">
                             @csrf
@@ -71,7 +71,7 @@ Visualizar chamado
                     <blockquote class="blockquote d-block col-10">
                         <footer class="blockquote-footer"><b>Requerente: </b>{{($solucao->id_user) ? $solucao->userName($solucao->id_user) : $solucao->requerente}}</footer>
                         <footer class="blockquote-footer"><b>Descrição: </b>{{$solucao->descricao}} </footer>
-                        <footer class="blockquote-footer"><b>Data: </b>{{ dateToPTBR($solucao->created_at)}} </footer>
+                        <footer class="blockquote-footer"><b>Data: </b>{{ datetimeToPTBR($solucao->created_at)}} </footer>
                     </blockquote>
                     <div class="col-2 sol p-0 mt-3">
                         @csrf

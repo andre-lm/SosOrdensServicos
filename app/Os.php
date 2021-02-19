@@ -36,7 +36,7 @@ class Os extends Model
     }
 
     public function users() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'id_user','id');
     }
 
     public function userName($id){

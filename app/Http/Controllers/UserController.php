@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use App\User;
@@ -14,6 +15,13 @@ use App\Os;
 
 class UserController extends Controller
 {
+    private $user;
+
+    public function __construct()
+    {
+        $this->user = new User();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +29,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        //$users = User::all();
+        $users = $this->user->paginate(5);
+        $count = $this->user->all()->count();
+
+        return view('users.index', compact('users', 'count'));
     }
 
     /**
@@ -33,7 +45,8 @@ class UserController extends Controller
     {
         $roles= Roles::all();
         if(Auth::user()){
-            return view('users.create', compact('roles'));
+           // return view('auth.register');
+             return view('users.create', compact('roles'));
         }else{
             return redirect()->route('login')->with('warning',"Faça login primeiro");
         }
@@ -45,7 +58,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $user = new User;
         DB::beginTransaction();
@@ -59,7 +72,7 @@ class UserController extends Controller
             foreach($request->roles as $role){
                 UserRoles::create([
                     'user_id' => $user->id,
-                    'role_id' => $role
+                    'roles_id' => $role
                 ]);
             }
             
@@ -79,6 +92,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        if(!Auth::user()){
+            return redirect()->route('login')->with('warning',"É obrigatório fazer login.");
+        }
         $user = User::find($id);
         return view('users.show', compact('user'));
     }
@@ -91,7 +107,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!Auth::user()){
+            return redirect()->route('login')->with('warning',"É obrigatório fazer login.");
+        }
+        $user = User::findOrFail($id);
+        $roles= Roles::all();
+
+        $objectUserRoles = $user->user_roles;
+        $array = json_decode($objectUserRoles, true);
+        $userRoles = array_column($array, 'roles_id');
+        
+        return view('users.edit', compact('user', 'roles', 'userRoles'));
     }
 
     /**
@@ -101,9 +127,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $user = User::find($id);
+        DB::beginTransaction();
+        try {
+            if($request->password && $request->password_confirmation){
+                if($request->password != $request->password_confirmation){
+                    return back()->with('error', "A confirmação para o campo Senha não coincide.");
+                }
+            }
+            $user->name = strtoupper($request->name);
+            $user->email = $request->email;
+            if($request->password) $user->password = Hash::make($request->password);
+            $user->update();
+
+            $user->roles()->sync($request->roles);
+            DB::commit();
+
+            return redirect()->route('user.show', $id)->with('success', "Usuário $user->name atualizado(a) com sucesso" );
+        }  catch (ModelNotFoundException $exception) {
+            DB::rollBack();
+            return back()->withError($exception->getMessage())->withInput();
+        }
     }
 
     /**

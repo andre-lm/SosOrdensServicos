@@ -6,7 +6,7 @@ Acompanhamento
 
 @section('content')
 
-<div class="card " style="margin: 0.5em 6em;">
+<div class="card " style="margin: 1em 6em;">
   <div class="card-header text-center">
   
     <span class="float-center">

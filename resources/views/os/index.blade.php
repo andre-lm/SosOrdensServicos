@@ -38,11 +38,7 @@ Chamados
                   <td>{{ $os->userName($os->id_user) }}</td>
                   <td>{{ $os->equipamento }}</td>
                   <td><span class="badge {{($os->status->id==1)? 'badge-success' : (($os->status->id==2)? 'badge-warning' : 'badge-danger')}}">{{ $os->status->status }}</span></td>
-                  @php
-                  $result = new DateTime($os->created_at);
-                  $created_at = $result->format("d/m/Y");
-                  @endphp
-                  <td>{{ $created_at }}</td>
+                  <td>{{ dateToPTBR($os->created_at) }}</td>
                   <td>
                     <a href="{{route('os.show', $os->id)}}" class="btn btn-light border">Visualizar</a>
                   </td>

@@ -5,7 +5,7 @@ Editar chamado
 @endsection
 
 @section('content')
-<div class="card " style="margin: 0 6em; padding:10px">
+<div class="card " style="margin: 1em 6em; padding:10px">
     @if(isset($errors) && count($errors)>0)
         <div class="text-center mt-4 mb-4 p-2 alert-danger alert-error">
           @foreach($errors->all() as $erro)
@@ -28,12 +28,11 @@ Editar chamado
             <label>Autor</label>
             <input name = "nome_autor" type="text" value = "{{$os->nome_autor}}" class="form-control"> 
           </div> -->
-
           <div class="form-group mt-1 mb-2 col-12">
             <label>Técnico</label>
             <select name = "atribuido_tecnico" class="form-select" >
               @foreach(findTecnicos() as $id => $nome)
-                <option value="{{$id}}">{{$nome}}</option>
+                @php echo '<option value="'.$id.'" '.(($id==$os->users->id)? "selected": "").'>'.$nome.'</option>'; @endphp
               @endforeach
             </select>
           </div>

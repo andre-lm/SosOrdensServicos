@@ -6,7 +6,7 @@ Criar chamado
 
 @section('content')
 
-<div class="card " style="margin: 0 6em; padding:10px">
+<div class="card " style="margin: 1em 6em; padding:10px">
 
     <div class="text-center">
         <span class="float-center">

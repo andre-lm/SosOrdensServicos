@@ -19,52 +19,52 @@ class UserRolesSeeder extends Seeder
 
 			array(
 				'user_id' => 1, 
-				'role_id' => 1
+				'roles_id' => 1
 			), 
 			array(
 				'user_id' => 1, 
-				'role_id' => 2
+				'roles_id' => 2
 			), 
 			array(
 				'user_id' => 1, 
-				'role_id' => 3
+				'roles_id' => 3
 			), 
 			array(
 				'user_id' => 1, 
-				'role_id' => 4
+				'roles_id' => 4
 			), 
 			
 			// ADMIN
 			array(
 				'user_id' => 2, 
-				'role_id' => 2
+				'roles_id' => 2
 			), 
 			array(
 				'user_id' => 2, 
-				'role_id' => 3
+				'roles_id' => 3
 			), 
 			array(
 				'user_id' => 2, 
-				'role_id' => 4
+				'roles_id' => 4
 			), 
 
 			//TECNICOS
 			array(
 				'user_id' => 3, 
-				'role_id' => 3
+				'roles_id' => 3
 			), 
 			array(
 				'user_id' => 3, 
-				'role_id' => 4
+				'roles_id' => 4
 			), 
 
 			array(
 				'user_id' => 4, 
-				'role_id' => 3
+				'roles_id' => 3
 			), 
 			array(
 				'user_id' => 4, 
-				'role_id' => 4
+				'roles_id' => 4
 			), 
 			
 		);

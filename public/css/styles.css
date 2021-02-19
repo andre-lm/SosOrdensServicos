@@ -91,3 +91,7 @@ hr{
 input.error, textarea.error, select.error{
     border: 1px solid #dc3545;
 }
+
+input.dis-able{
+    pointer-events: none;
+}

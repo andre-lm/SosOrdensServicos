@@ -6,8 +6,12 @@ Meus chamados
 
 @section('content')
 
+@if(!isset($NewOrdens[0]) && !isset($ordens[0]))
+<h3 class="text-center mt-4">Nenhum chamado em aberto</h3>
+@endif
+
 @if(isset($NewOrdens[0]))
-<h3 class="text-center">Novos chamados</h3>
+<h3 class="text-center mt-4">Novos chamados</h3>
 @endif
 @foreach($NewOrdens as $os)
 <div class="card" style="margin: 1em 15em;">
@@ -36,10 +40,10 @@ Meus chamados
 </div>
 @endforeach
 
-<br><hr><br>
 
 @if(isset($ordens[0]))
-<h3 class="text-center"> Chamados em Atendimento</h3>
+<hr class="mt-4 mb-3">
+<h3 class="text-center mt-2"> Chamados em Atendimento</h3>
 @endif
 @foreach($ordens as $os)
 <div class="card" style="margin: 1em 15em;">

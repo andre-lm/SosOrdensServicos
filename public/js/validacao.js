@@ -72,7 +72,7 @@ $(document).ready(function(){
         {
             errorElement:"span",
             submitHandler: function(form){
-            form.submit();
+                form.submit();
             },
             rules:{
                 requerente:{
@@ -96,6 +96,114 @@ $(document).ready(function(){
                     required:"Esse campo não pode ser vazio",
                     minlength: "Obrigatório pelo menos 10 caracteres",
                     maxlength: "Apenas até 200 caracteres"
+                }
+            }
+        }
+    )
+
+    $("#formUser").validate(
+        {
+            errorElement:"span",
+            submitHandler: function(form){
+            form.submit();
+            },
+            rules:{
+                name: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 50,
+                    string: true,
+                },
+                email:{
+                    required: true,
+                    minlength: 10,
+                    maxlength: 50,
+                    email: true,
+                    unique: true,
+                },
+                password:{
+                    required: true,
+                    minlength: 8,
+                },
+                "password_confirmation":{
+                    required: true,
+                    minlength: 8,
+                },
+                "roles[]":{
+                    required: true,
+                },
+            },
+            messages:{
+                name:{
+                    required: "Esse campo não pode ser vazio",
+                    minlength:"Obrigatório pelo menos 5 caracteres",
+                    maxlength: "Apenas até 50 caracteres",
+                    string: "Esse campo deve ser do tipo string"
+                },
+                email: {
+                    required: "Esse campo não pode ser vazio",
+                    minlength:"Obrigatório pelo menos 10 caracteres",
+                    maxlength: "Apenas até 50 caracteres",
+                    email: "Insira um email valido",
+                    unique: "Esse email já esta cadastrado"
+                },
+                password:{
+                    required: "Esse campo não pode ser vazio",
+                    minlength:"Obrigatório pelo menos 8 caracteres",
+                },
+                "password_confirmation":{
+                    required: "Esse campo não pode ser vazio",
+                    minlength: "Obrigatório pelo menos 8 caracteres",
+                },
+                "roles[]":{
+                    required: "Esse campo não pode ser vazio",
+                }
+            }
+        }
+    )
+
+    $("#formUserEdit").validate(
+        {
+            errorElement:"span",
+            //submitHandler: function(form){
+            //form.submit();
+            //console.log(form);
+            //},
+            rules:{
+                name: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 10,
+                },
+                email:{
+                    required: true,
+                    minlength: 10,
+                    maxlength: 50,
+                    email: true,
+                    unique: true,
+                },
+                "roles[]":{
+                    required: true,
+                },
+                if(password){
+                    //$("#password_confirmation").attr('required', true);
+                }
+            },
+            messages:{
+                name:{
+                    required: "Esse campo não pode ser vazio",
+                    minlength:"Obrigatório pelo menos 5 caracteres",
+                    maxlength: "Apenas até 50 caracteres",
+                },
+                email: {
+                    required: "Esse campo não pode ser vazio",
+                    minlength:"Obrigatório pelo menos 10 caracteres",
+                    maxlength: "Apenas até 50 caracteres",
+                    email: "Insira um email valido",
+                    unique: "Esse email já esta cadastrado"
+                },
+                "roles[]":{
+                    required: "Esse campo não pode ser vazio",
                 }
             }
         }

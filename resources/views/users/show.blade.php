@@ -6,7 +6,7 @@
 Meu Perfil
 @endsection
 
-<div class="card " style="margin: 0.2em 8em;">
+<div class="card " style="margin: 2em 8em;">
     <div class="text-center">
         <img class="profile-user-img img-fluid img-circle"
             src="{{ asset('img/profile.png') }}"
@@ -24,7 +24,7 @@ Meu Perfil
         $created_at = $result->format("d/m/Y");
         @endphp
         <p class="p-show"><b>Data de criação:</b> {{ $created_at }}</p>
-        <a href="#" class = "btn btn-primary">Editar</a>
+        <a href="{{ route('user.edit', $user->id) }}" class = "btn btn-primary">Editar</a>
     </div>
 </div>
 

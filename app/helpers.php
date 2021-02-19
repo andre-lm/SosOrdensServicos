@@ -7,12 +7,24 @@ function changeDateFormate($date,$date_format){
 }
 function dateToPTBR($date){
     $result = new DateTime($date);
+    return $result->format("d/m/Y"); 
+}
+
+function datetimeToPTBR($date){
+    $result = new DateTime($date);
     return $result->format("d/m/Y h:m:s"); 
 }
    
 function productImagePath($image_name)
 {
     return public_path('images/products/'.$image_name);
+}
+
+function userIsAdmin($user){
+    if($user->minRoleID($user)==2 || $user->minRoleID($user)==1){
+        return true;
+    } 
+    return false;
 }
 
 function userIsTecnico($user){

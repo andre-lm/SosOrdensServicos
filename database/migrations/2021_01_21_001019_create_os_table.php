@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateOsTable extends Migration
 {
@@ -29,7 +30,7 @@ class CreateOsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        
+        DB::update("ALTER TABLE os AUTO_INCREMENT = 202101;");
     }
 
     /**

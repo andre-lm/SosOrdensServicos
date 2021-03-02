@@ -5,19 +5,21 @@ $(document).ready(function(){
     if($('#roles')){
         first = '';
         
-        $('#roles').find('input').each(function(){
-            if($(this).prop('checked')==false && first==''){ //se nao encontrou o primeiro checkbox checked, desabilita botao
-                $(this).addClass('dis-able')
-            }
-            if($(this).prop('checked')==true && first==''){ //define o primeiro checkbox checked
-                first=$(this);
-            }
-            if(first !='' && $(this).attr('id') > first.attr('id')){ //definem todos os seguintes como desabilitados
-                if($(this).prop('checked')==true){
+        if($('#user_id').val()){
+            $('#roles').find('input').each(function(){
+                if($(this).prop('checked')==false && first==''){ //se nao encontrou o primeiro checkbox checked, desabilita botao
                     $(this).addClass('dis-able')
                 }
-            }
-        })
+                if($(this).prop('checked')==true && first==''){ //define o primeiro checkbox checked
+                    first=$(this);
+                }
+                if(first !='' && $(this).attr('id') > first.attr('id')){ //definem todos os seguintes como desabilitados
+                    if($(this).prop('checked')==true){
+                        $(this).addClass('dis-able')
+                    }
+                }
+            })
+        }
     }
 })
 
@@ -40,6 +42,8 @@ $('.icheck').click(function(){
             
         }else if($(this).attr('id') < this_id){
             if($(clicked).prop('checked')==true){
+                console.log($(this))
+                console.log($(this).parents('.chb'))
                 $(this).parents('.chb').hide();
             }else{
                 $(this).parents('.chb').show();

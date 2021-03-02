@@ -73,6 +73,7 @@ Criar usuário
                             <div id="roles" class="col-md-6 ml-4">
                                 @foreach ($roles as $role)
                                     @if($role->id > Auth::user()->minRoleID(Auth::user()))
+                                    <div class="chb">
                                         <input class="form-check-input icheck" name="roles[]" type="checkbox" value="{{ $role->id}}" id="ckb-{{$role->id}}">
                                         <label class="form-check-label d-block" style="width: fit-content;">
                                             {{ $role->name }}
@@ -81,6 +82,7 @@ Criar usuário
                                             </span>
 
                                         </label>
+                                    </div>
                                     @endif
                                 @endforeach
                             </div>

@@ -175,6 +175,6 @@ class UserController extends Controller
     public function meusChamados($user_id){
         $NewOrdens = Os::where('id_user', $user_id)->where('status_id',1)->get();
         $ordens = Os::where('id_user', $user_id)->where('status_id',2)->get();
-        return view('users.chamados', compact('NewOrdens','ordens'));
+        return view('users.chamados', compact('NewOrdens','ordens','user_id'));
     }
 }

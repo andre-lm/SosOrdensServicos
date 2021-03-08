@@ -6,7 +6,13 @@
 Meu Perfil
 @endsection
 
-<div class="card " style="margin: 2em 8em;">
+@section('breadcrumb')
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Perfil</li>
+</ol>
+@endsection
+
+<div class="card ">
     <div class="text-center">
         <img class="profile-user-img img-fluid img-circle"
             src="{{ asset('img/profile.png') }}"

@@ -99,7 +99,6 @@ async function delElement(element){
 
     const mudanca = realizarMudanca();
     getResult = await mudanca.destroy(id, token, url);
-    console.log(getResult)
 
     if(getResult.status!='erro'){ 
         reloadSuccess( getResult, element)
@@ -135,9 +134,10 @@ function realizarMudanca() {
 //retornar resultado de sucesso para html
 function reloadSuccess( result, element){
     $(".alert").remove();
-    $('main').prepend(' <div class="alert alert-success alert-test" style="margin: 0 6em;">'+result.msg+'</div>')
+    $('main').prepend(' <div class="alert alert-success alert-test" style="margin: 1em;">'+result.msg+'</div>')
     $('.alert-test').fadeTo(2000, 500).slideUp(500)
     $(element).parents('div.collapse').slideUp();
+
     if(result.os_status && result.os_status!=""){
         if(result.os_status=="Em aberto"){
             $(element).parents('.card-body').find('button.acompanhamento').remove()
@@ -155,6 +155,6 @@ function reloadSuccess( result, element){
 //retornar resultado de erro para html
 function reloadError(msg){
     $(".alert").remove();
-    $('main').prepend(' <div class="alert alert-danger alert-test" style="margin: 0 6em;">'+msg+'</div>')
+    $('main').prepend(' <div class="alert alert-danger alert-test" >'+msg+'</div>')
     $('.alert-test').fadeTo(2000, 500).slideUp(500)
 }

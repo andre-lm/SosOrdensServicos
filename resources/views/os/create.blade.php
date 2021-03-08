@@ -4,15 +4,18 @@
 Criar chamado
 @endsection
 
+@section('breadcrumb')
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item"><a href="{{route('os.index')}}">OS</a></li>
+  <li class="breadcrumb-item active">Criar chamado</li>
+</ol>
+@endsection
+
 @section('content')
 
-<div class="card " style="margin: 1em 6em; padding:10px">
+<div class="card " style="margin: 1em 0; padding:10px">
 
-    <div class="text-center">
-        <span class="float-center">
-           <h4>Criar chamado</h4>
-        </span>
-    </div>
+   
     <form action="{{ route('os.store') }}" id="formOS" method="POST">
 
       @csrf
@@ -44,7 +47,7 @@ Criar chamado
             <label for="floatingTextarea2">Descrição</label>
         </div>
         <br>
-          <div class = "col">
+          <div class = "col text-center">
            <button type ='submit' class = "btn btn-primary">Salvar</button>
            <a href="{{route('os.index')}}" class="btn btn-light border">Cancelar</a>
           </div>

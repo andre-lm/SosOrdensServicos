@@ -4,8 +4,15 @@
 Editar chamado
 @endsection
 
+@section('breadcrumb')
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item"><a href="{{route('os.show',$os->id)}}">OS</a></li>
+  <li class="breadcrumb-item active">Editar chamado {{$os->id}}</li>
+</ol>
+@endsection
+
 @section('content')
-<div class="card " style="margin: 1em 6em; padding:10px">
+<div class="card " style="padding:10px">
     @if(isset($errors) && count($errors)>0)
         <div class="text-center mt-4 mb-4 p-2 alert-danger alert-error">
           @foreach($errors->all() as $erro)
@@ -13,11 +20,6 @@ Editar chamado
           @endforeach
         </div>
     @endif
-    <div class="text-center">
-        <span class="float-center">
-           <h4>Editar chamado  - ID {{$os->id}}</h4>
-        </span>
-    </div>
       <form action="{{ route('os.update', $os->id) }}" method="POST">
 
         @csrf
@@ -52,9 +54,10 @@ Editar chamado
           <label>Descrição</label>
             <textarea class="form-control" placeholder="Descrição"  name = "descrição" style="height: 100px">{{$os->descrição}} </textarea>
         </div>
-        
-        <button type ='submit' class = "btn btn-primary">Alterar</button>
-        <a href="{{route('os.show', $os->id)}}" class="btn btn-light border">Cancelar</a>
+        <div class="text-center">
+          <button type ='submit' class = "btn btn-primary">Alterar</button>
+          <a href="{{route('os.show', $os->id)}}" class="btn btn-light border">Cancelar</a>
+        </div>
     </form>
 </div>
 <div class="text-center">

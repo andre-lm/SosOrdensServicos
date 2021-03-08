@@ -4,15 +4,21 @@
 Solução
 @endsection 
 
+@section('breadcrumb')
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item"><a href="{{route('os.show', $os->id)}}">OS</a></li>
+  <li class="breadcrumb-item active">Solução chamado {{$os->id}}</li>
+</ol>
+@endsection
+
 @section('content')
 
-<div class="card " style="margin: 1em 6em;">
+<div class="card " style="margin: 1em 0;">
   <div class="card-header text-center">
 
     <span class="float-center">
-        <h5> Chamado - ID {{ $os->id }}</h5>
-        <h4>{{$os->titulo}}</h4>
-        <p><b>Autor:</b> {{ $os->nome_autor }}</p>
+        <h5> Chamado - {{$os->titulo}}</h4>
+        <b>Autor:</b> {{ $os->nome_autor }}s
     </span>
   </div>
   <div class="card-body">

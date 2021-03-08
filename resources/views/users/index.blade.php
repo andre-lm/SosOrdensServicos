@@ -4,8 +4,14 @@
 Listar Usuários
 @endsection
 
+@section('breadcrumb')
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Usuários </li>
+</ol>
+@endsection
+
 @section('content')
-<div class="card" style="margin: 1em 6em;">
+<div class="card">
     <div class="card-body col-12">
         <div class="text-center text-secondary mb-1">
             <a class="btn btn-secondary mb-3" href="{{ route('user.create') }}">Cadastrar</a>
@@ -13,7 +19,7 @@ Listar Usuários
             {{'Total de '.$count.' registros - Exibindo '.$users->count().' por página'}}
         </div>
 
-        <table class="table table-hover" align = 'center'>
+        <table class="table table-hover table-bordered" align = 'center'>
             <thead align = 'center'>
                 <tr>
                     <th>Nome</th>
@@ -23,6 +29,15 @@ Listar Usuários
                     <th colspan ="100%">Ações</th>
                 </tr>
             </thead>
+            <tfoot align = 'center'>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Data de Criação</th>
+                    <th>Nível</th>
+                    <th colspan ="100%">Ações</th>
+                </tr>
+            </tfoot>
             <tbody align = 'center'>
                 @foreach($users as $user)
                 <tr>

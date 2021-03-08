@@ -1,17 +1,23 @@
 @extends('template.app')
 
 @section('title')
-Visualizar chamado
+Visualizar chamado 
+@endsection
+
+@section('breadcrumb')
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item"><a href="{{route('os.index')}}">OS</a></li>
+  <li class="breadcrumb-item active">Chamado {{$os->id}}</li>
+</ol>
 @endsection
 
 @section('content')
 
-<div class="card " style="margin: 1em 6em;">
+<div class="card " style="margin: 1em 0;">
     
     <div class="card-header text-center">
         <span class="float-center">
-            <h5> Chamado - ID {{ $os->id }}</h5>
-            <h4>{{$os->titulo}}</h4>
+            <h5> Chamado - {{ $os->titulo }}</h5>
         </span>
     </div>
   <div class="card-body">

@@ -5,19 +5,19 @@ Chamados
 @endsection
 
 @section('content')
-<div class="card" style="margin: 1em;">
+<div class="card" style="margin: 1em 0;">
   <div class="card-body col-12">
 
       <div class="text-center text-secondary mb-1">
-          <a class="btn btn-secondary mb-3" href="{{ route('os.create') }}">Criar Novo Chamado</a>
+          <a class="btn btn-secondary mb-3" href="{{ route('os.create') }}">Cadastrar Chamado</a>
           <a class="btn btn-success mb-3" href="{{ route('os.export') }}">Exportar xls</a>
           <br>
           {{'Total de '.$count.' registros - Exibindo '.$ordemservico->count().' por página'}}
       </div>
 
-    <table class="table table-hover">
-
-      <thead class="">
+    <div class="table-responsive">
+    <table class="table table-hover table-bordered" width="100%" cellspacing="0">
+      <thead>
           <tr> 
               <th>ID</th>
               <th>Aberto por:</th>
@@ -29,6 +29,18 @@ Chamados
               <th colspan ="100%">Ações</th>
           </tr>
       </thead>
+      <tfoot>
+        <tr> 
+            <th>ID</th>
+            <th>Aberto por:</th>
+            <TH>Título</TH>
+            <th>Atribuído para técnico</th>
+            <th>Equipamento</th>
+            <th>Situação</th>
+            <th>Data de Abertura</th>
+            <th colspan ="100%">Ações</th>
+        </tr>
+    </tfoot>
       <tbody align = 'left'>
           @foreach($ordemservico as $os)
               <tr>
@@ -46,6 +58,7 @@ Chamados
           @endforeach
       </tbody>
     </table>
+    </div>
   </div>
   <div class="os-footer">
           {{$ordemservico->links()}}

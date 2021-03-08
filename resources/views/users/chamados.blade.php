@@ -4,17 +4,21 @@
 Meus chamados
 @endsection
 
+@section('breadcrumb')
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{{route('user.show',$user_id)}}">Perfil</a></li>
+    <li class="breadcrumb-item active">Chamados em aberto </li>
+</ol>
+@endsection
+
 @section('content')
 
 @if(!isset($NewOrdens[0]) && !isset($ordens[0]))
 <h3 class="text-center mt-4">Nenhum chamado em aberto</h3>
 @endif
 
-@if(isset($NewOrdens[0]))
-<h3 class="text-center mt-4">Novos chamados</h3>
-@endif
 @foreach($NewOrdens as $os)
-<div class="card" style="margin: 1em 15em;">
+<div class="card" style="margin: 1em 0;">
     
     <div class="card-header text-center {{($os->status->id==1)? 'alert-success' : 'alert-warning' }}">
         <span class="float-center">
@@ -40,13 +44,8 @@ Meus chamados
 </div>
 @endforeach
 
-
-@if(isset($ordens[0]))
-<hr class="mt-4 mb-3">
-<h3 class="text-center mt-2"> Chamados em Atendimento</h3>
-@endif
 @foreach($ordens as $os)
-<div class="card" style="margin: 1em 15em;">
+<div class="card" style="margin: 1em 0;">
     <div class="card-header text-center {{($os->status->id==1)? 'alert-success' : 'alert-warning' }}">
         <span class="float-center">
             <h4> Chamado {{$os->id}} - {{$os->titulo}}</h4>
